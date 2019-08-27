@@ -7,21 +7,36 @@ export default class Matrix extends Component {
 
   constructor() {
     super()
+    this.state = {
+      color: 'black'
+    }
   }
 
+  handleColor = (newColor) => {
+    debugger
+    console.log(this)
+    let change = newColor
+    this.setState({
+      color: change
+    })
+  }
+
+  getNewColor = () => (this.state.color)
+
   genRow = (vals) => (
-    vals.map((val, idx) => <Cell key={idx} color={val} />)
+    vals.map((val, idx) => <Cell key={idx} color={val} getNewColor={this.getNewColor}/>)
   )
 
   genMatrix = () => (
-    this.props.values.map((rowVals, idx) => <div key={idx} className="row">{this.genRow(rowVals)}</div>)
+   this.props.values.map((rowVals, idx) => <div key={idx} className="row" >{this.genRow(rowVals)}</div>)
   )
 
 
   render() {
+
     return (
       <div id="app">
-        <ColorSelector />
+        <ColorSelector colorChange={this.handleColor}/>
         <div id="matrix">
           {this.genMatrix()}
         </div>
